@@ -1,0 +1,15 @@
+.HomePage-body {
+    display: flex;
+    margin-top: 62px;
+
+    .HomePage-body-left {
+        width: 329px;
+        position: fixed;
+    }
+
+    .HomePage-body-right {
+        margin-left: 329px;
+        width: calc(100% - 329px);
+        background: #f8f9fa;
+    }
+}

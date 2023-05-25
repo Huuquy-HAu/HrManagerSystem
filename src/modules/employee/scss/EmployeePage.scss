@@ -1,0 +1,98 @@
+.EmployeePage {
+    width: 100%;
+    padding: 30px 46px 0;
+
+    .EmployeePage-header {
+        width: 100%;
+        font-weight: 500;
+        font-size: 28px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .table-body {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        .table-formm {
+            width: 100%;
+
+            .table-btn-add {
+                background: #edf6ff;
+                text-transform: capitalize;
+                padding: 0px 28px;
+                border-radius: 6px;
+                line-height: 36px;
+            }
+
+            .table-btn-delete-checked {
+                background: #ffefef;
+                text-transform: capitalize;
+                color: rgb(229, 72, 77);
+                padding: 0px 28px;
+                border-radius: 6px;
+                line-height: 36px;
+                margin-left: 5px;
+            }
+
+            .table-btn-delete-disable {
+                background-color: rgb(241, 243, 245);
+                text-transform: capitalize;
+                color: rgba(193, 200, 205, 0.8);
+                padding: 0px 28px;
+                border-radius: 6px;
+                line-height: 36px;
+                margin-left: 5px;
+            }
+
+            .MuiTableCell-head {
+                font-weight: bold;
+                background-color: #ECEEF0;
+                color: #333;
+            }
+
+            .MuiTable-root {
+                border-radius: 20px;
+            }
+
+            th,
+            td {
+                border: 2px solid white;
+                background: rgb(248, 249, 250);
+                color: rgb(104, 112, 118);
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 1.43;
+            }
+
+            .MuiCheckbox-root {
+                border-color: black;
+            }
+
+            .checkbox-checked .MuiSvgIcon-root {
+                color: #30a46c;
+            }
+
+            .checkbox-unchecked .MuiSvgIcon-root {
+                color: #D7DBDF;
+                /* Màu trước khi chọn */
+            }
+
+            .MuiCheckbox-colorPrimary.Mui-checked {
+                color: rgb(48, 164, 108);
+            }
+
+
+            .selected>td {
+                color: black;
+                background-color: rgb(233, 249, 238);
+                ;
+            }
+
+
+        }
+    }
+}

@@ -1,0 +1,195 @@
+.CreateOrUpdatePage {
+    margin: 30px 46px;
+
+    .CreateOrUpdate-header {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .CreateOrUpdate-tab {
+        .MuiTabs-root .MuiTab-root {
+            outline: none;
+            /* Loại bỏ viền xung quanh Tab khi được focus */
+            box-shadow: none;
+            /* Loại bỏ bóng đổ khi Tab được focus */
+        }
+
+        .PersonalInformation {
+
+            /* Chrome, Safari, Edge, Opera */
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            /* Firefox */
+            input[type=number] {
+                -moz-appearance: textfield;
+            }
+
+            .MuiOutlinedInput-notchedOutline {
+                border: none;
+
+                .MuiSelect-select {
+                    display: flex;
+                    color: rgb(104, 112, 118);
+                    border-radius: 0.25rem;
+                }
+            }
+
+            .react-datepicker {
+                border: 1px solid #dfe3e6;
+
+                button:focus {
+                    outline: none;
+                }
+
+                .react-datepicker__navigation {
+                    margin-top: 16px !important;
+                }
+            }
+
+            .react-datepicker-wrapper {
+                width: auto;
+                max-width: 290px;
+            }
+
+            .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before,
+            .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::after {
+                border: none;
+            }
+
+            .react-datepicker-popper {
+                z-index: 1000;
+            }
+
+            .react-datepicker__month-container {
+                width: 351px;
+                height: 348px;
+
+                .react-datepicker__header {
+                    background-color: #fff;
+                    border-bottom: none;
+                    height: 108px;
+
+                    .react-datepicker__current-month {
+                        height: 50px;
+                    }
+
+                    .react-datepicker__day-names {
+                        align-items: center;
+                        margin-bottom: 2px;
+                        margin-top: 2px;
+                        gap: 4px;
+                        padding: 0 10px !important;
+
+                        .react-datepicker__day-name {
+                            width: 52px;
+                            height: 35px;
+                            margin: 0px;
+                            line-height: 1.35714;
+                            font-size: 14px;
+                            font-family: "SVN-Sofia Pro Regular", "Public Sans", sans-serif;
+                            font-weight: 400;
+                            color: rgb(48, 164, 108);
+                            background-color: rgb(233, 249, 238);
+                            padding: 8px 13.5px;
+                            width: auto;
+                            border-radius: 6px;
+                        }
+                    }
+                }
+
+                .react-datepicker__day,
+                .react-datepicker__time-name {
+                    margin: 0;
+                    padding: 0;
+                    width: auto;
+                }
+
+                .react-datepicker__day-names,
+                .react-datepicker__week {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0 10px;
+                }
+
+                .react-datepicker__day {
+                    position: relative;
+                    box-sizing: border-box;
+                    -webkit-tap-highlight-color: transparent;
+                    background-color: transparent;
+                    outline: 0px;
+                    border: 0px;
+                    margin: 0px;
+                    padding: 0px;
+                    cursor: pointer;
+                    user-select: none;
+                    vertical-align: middle;
+                    appearance: none;
+                    text-decoration: none;
+                    color: inherit;
+                    line-height: 1.35714;
+                    font-size: 14px;
+                    font-weight: 400;
+                    width: 34px;
+                    height: 34px;
+                    margin-left: 6px;
+                    display: flex;
+                    -webkit-box-pack: center;
+                    justify-content: center;
+                    -webkit-box-align: center;
+                    align-items: center;
+                    border-radius: 50%;
+                }
+
+                .react-datepicker__day:hover {
+                    background-color: rgb(241, 243, 245);
+                }
+
+                .react-datepicker__day--selected {
+                    background-color: #0091ff !important;
+                    border-radius: 50% !important;
+                    color: #fff;
+                }
+
+                .react-datepicker__month {
+                    display: flex;
+                    flex-direction: column;
+                    margin: 0;
+
+                    .react-datepicker__week {
+                        gap: 0;
+                        height: 40px;
+                    }
+                }
+
+                .react-datepicker__day--outside-month {
+                    color: #c1c8cd;
+                }
+            }
+
+            .react-datepicker__close-icon:focus {
+                outline: none;
+            }
+
+            .react-datepicker__close-icon::after {
+                cursor: pointer !important;
+                background-color: transparent !important;
+                color: #a0a0a0 !important;
+                border-radius: 50% !important;
+                height: 24px !important;
+                width: 24px !important;
+                font-size: 19px !important;
+                line-height: 1 !important;
+                text-align: center !important;
+                display: table-cell !important;
+                vertical-align: middle !important;
+                content: "x" !important;
+            }
+        }
+    }
+}

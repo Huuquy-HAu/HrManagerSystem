@@ -1,0 +1,95 @@
+.LoginPage {
+    background: #f3f3f3;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+   
+
+    .header-LoginPage {
+        display: contents;
+        img {
+            width: 100px;
+            height: 100px;
+        }
+
+        p {
+            font-size: 36px;
+            font-weight: 500;
+        }
+    }
+
+    .body-LoginPage {
+        .LoginForm {
+            width: 348px;
+            background: #FBFCFD;
+            text-align: center;
+            margin-top: 35px;
+            padding: 24px 24px 32px 24px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 25px 0px #D7DBDF80;
+
+            .invalid-input {
+                background: #ffefef;
+                padding: 8px 12px;
+                width: 300px;
+                height: 46px;
+            }
+
+            .ant-btn-primary {
+                background-color: #1677ff;
+            }
+              
+
+
+            .ant-input:focus,
+            .ant-input-focused {
+                box-shadow: none;
+            }
+
+            .Input-Username {
+                background: #F1F3F5;
+                padding: 8px 12px;
+                width: 300px;
+                height: 46px;
+            }
+
+            .ant-input-password {
+                background: #F1F3F5;
+                padding: 8px 12px;
+                width: 300px;
+                height: 46px;
+
+                .ant-input {
+                    background: #F1F3F5;
+                }
+            }
+
+            .ant-select-selector {
+                background: #F1F3F5;
+                padding: 8px 12px;
+                height: 46px;
+
+                .ant-select-selection-item {
+                    width: 300px;
+
+                }
+            }
+            .ant-btn {
+                padding: 8px 12px;
+                width: 300px;
+                height: 46px;
+            }
+        }
+
+
+        p {
+            font-size: 36px;
+        }
+
+
+    }
+}
