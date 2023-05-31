@@ -5,7 +5,7 @@ export const CustomTabMuis = styled(Tabs)({
   borderBottom: "1px solid #e8e8e8",
   "& .MuiTabs-root":{
     border:'none', 
-    marginBottom:'10px',
+    marginBottom:'20px',
   },
   "& .MuiTabs-flexContainer": {
     //   backgroundColor: '#1890ff',

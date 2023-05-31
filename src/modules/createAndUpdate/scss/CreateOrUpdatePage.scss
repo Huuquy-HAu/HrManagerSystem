@@ -1,6 +1,14 @@
 .CreateOrUpdatePage {
     margin: 30px 46px;
 
+    input:focus {
+        outline-offset: 0;
+    }
+
+    input {
+        outline-offset: 0;
+    }
+
     .CreateOrUpdate-header {
         display: flex;
         justify-content: space-between;
@@ -14,6 +22,7 @@
             /* Loại bỏ viền xung quanh Tab khi được focus */
             box-shadow: none;
             /* Loại bỏ bóng đổ khi Tab được focus */
+            margin-bottom: 20px;
         }
 
         .PersonalInformation {
@@ -189,6 +198,264 @@
                 display: table-cell !important;
                 vertical-align: middle !important;
                 content: "x" !important;
+            }
+        }
+
+        .ContractInformationPage {
+
+            .react-datepicker {
+                border: 1px solid #dfe3e6;
+                padding: 4px;
+
+                button:focus {
+                    outline: none;
+                }
+
+                .react-datepicker__navigation {
+                    margin-top: 16px !important;
+                }
+            }
+
+            .react-datepicker-wrapper {
+                width: auto;
+                max-width: 290px;
+            }
+
+            .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before,
+            .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::after {
+                border: none;
+            }
+
+            .react-datepicker-popper {
+                z-index: 1000;
+            }
+
+            .react-datepicker__month-container {
+                width: 351px;
+                height: 348px;
+
+                .react-datepicker__header {
+                    background-color: #fff;
+                    border-bottom: none;
+                    height: 108px;
+
+                    .react-datepicker__current-month {
+                        height: 50px;
+                    }
+
+                    .react-datepicker__day-names {
+                        align-items: center;
+                        margin-bottom: 2px;
+                        margin-top: 2px;
+                        gap: 4px;
+                        padding: 0 10px !important;
+
+                        .react-datepicker__day-name {
+                            width: 52px;
+                            height: 35px;
+                            margin: 0px;
+                            line-height: 1.35714;
+                            font-size: 14px;
+                            font-family: "SVN-Sofia Pro Regular", "Public Sans", sans-serif;
+                            font-weight: 400;
+                            color: rgb(48, 164, 108);
+                            background-color: rgb(233, 249, 238);
+                            padding: 8px 13.5px;
+                            width: auto;
+                            border-radius: 6px;
+                        }
+                    }
+                }
+
+                .react-datepicker__day,
+                .react-datepicker__time-name {
+                    margin: 0;
+                    padding: 0;
+                    width: auto;
+                }
+
+                .react-datepicker__day-names,
+                .react-datepicker__week {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0 10px;
+                }
+
+                .react-datepicker__day {
+                    position: relative;
+                    box-sizing: border-box;
+                    -webkit-tap-highlight-color: transparent;
+                    background-color: transparent;
+                    outline: 0px;
+                    border: 0px;
+                    margin: 0px;
+                    padding: 0px;
+                    cursor: pointer;
+                    user-select: none;
+                    vertical-align: middle;
+                    appearance: none;
+                    text-decoration: none;
+                    color: inherit;
+                    line-height: 1.35714;
+                    font-size: 14px;
+                    font-weight: 400;
+                    width: 34px;
+                    height: 34px;
+                    margin-left: 6px;
+                    display: flex;
+                    -webkit-box-pack: center;
+                    justify-content: center;
+                    -webkit-box-align: center;
+                    align-items: center;
+                    border-radius: 50%;
+                }
+
+                .react-datepicker__day:hover {
+                    background-color: rgb(241, 243, 245);
+                }
+
+                .react-datepicker__day--selected {
+                    background-color: #0091ff !important;
+                    border-radius: 50% !important;
+                    color: #fff;
+                }
+
+                .react-datepicker__month {
+                    display: flex;
+                    flex-direction: column;
+                    margin: 0;
+
+                    .react-datepicker__week {
+                        gap: 0;
+                        height: 40px;
+                    }
+                }
+
+                .react-datepicker__day--outside-month {
+                    color: #c1c8cd;
+                }
+            }
+
+            .react-datepicker__close-icon:focus {
+                outline: none;
+            }
+
+            .react-datepicker__close-icon::after {
+                cursor: pointer !important;
+                background-color: transparent !important;
+                color: #a0a0a0 !important;
+                border-radius: 50% !important;
+                height: 24px !important;
+                width: 24px !important;
+                font-size: 19px !important;
+                line-height: 1 !important;
+                text-align: center !important;
+                display: table-cell !important;
+                vertical-align: middle !important;
+                content: "x" !important;
+            }
+
+            .contract {
+                border: 1px solid rgb(223, 227, 230);
+                border-radius: 6px;
+
+                .header-contract {
+                    line-height: 1.5;
+                    font-size: 12px;
+                    color: rgb(104, 112, 118);
+                    font-weight: 600;
+                    background-color: rgb(241, 243, 245);
+                    padding: 5px 20px;
+                }
+
+                .des-contract {
+                    line-height: 1.35714;
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: rgb(104, 112, 118);
+                    padding: 10px 20px;
+                }
+
+                hr {
+                    border-width: 0px 0px thin;
+                    border-style: solid;
+                    border-color: rgba(193, 200, 205, 0.24);
+                }
+
+                .body-contract {
+                    padding: 20px 14px 30px 20px;
+
+                    .file-name {
+                        background-color: rgb(241, 243, 245);
+                        padding: 6px 6px 6px 10px;
+                        font-size: 14px;
+
+                        p {
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            width: 350px;
+                        }
+
+                        button {
+                            padding: 0 10px;
+                        }
+                    }
+
+                    .body-right {
+
+                        
+                        .table-btn-add {
+                            background: #edf6ff;
+                            text-transform: capitalize;
+                            padding: 0px 28px;
+                            border-radius: 6px;
+                            line-height: 36px;
+                        }
+
+                        .table-btn-delete-checked {
+                            background: #ffefef;
+                            text-transform: capitalize;
+                            color: rgb(229, 72, 77);
+                            padding: 0px 28px;
+                            border-radius: 6px;
+                            line-height: 36px;
+                            margin-left: 5px;
+                        }
+
+                        .table-btn-delete-disable {
+                            background-color: rgb(241, 243, 245);
+                            text-transform: capitalize;
+                            color: rgba(193, 200, 205, 0.8);
+                            padding: 0px 28px;
+                            border-radius: 6px;
+                            line-height: 36px;
+                            margin-left: 5px;
+                        }
+
+                        .MuiTableCell-head {
+                            font-weight: bold;
+                            background-color: #ECEEF0;
+                            color: #333;
+                        }
+
+                        .MuiTable-root {
+                            border-radius: 20px;
+                        }
+
+                        th,
+                        td {
+                            border: 2px solid white;
+                            background: rgb(248, 249, 250);
+                            color: rgb(104, 112, 118);
+                            font-weight: 400;
+                            font-size: 12px;
+                            line-height: 1.43;
+                        }
+
+                    }
+                }
+
             }
         }
     }

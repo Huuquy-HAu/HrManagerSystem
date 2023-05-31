@@ -45,6 +45,7 @@ const initialState: CreateOrUpdateSate = {
         remark: null,
         benefits: [],
         account_user_id: 0,
+        contracts:[]
     },
 }
 

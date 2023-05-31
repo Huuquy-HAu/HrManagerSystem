@@ -1,7 +1,11 @@
 import { styled } from "@mui/material/styles";
 import Tab from "@mui/material/Tab";
 
-export const CustomTabMui = styled(Tab)(({ theme }) => ({
+interface ICustomTabProps {
+  "valid"?: boolean;
+}
+
+export const CustomTabMui = styled(Tab)<ICustomTabProps>(({ theme, ...props }) => ({
   textTransform: "none",
   fontSize: "14px",
   fontWeight: "400",
@@ -15,8 +19,8 @@ export const CustomTabMui = styled(Tab)(({ theme }) => ({
     outline: "none"
   },
   "&.MuiTab-root": {
-    color: "#0097ff",
-    backgroundColor: "rgb(237,246,255)",
+    color: props["valid"] ? "#0097ff" : "rgb(229, 72, 77)",
+    backgroundColor: props["valid"] ? "rgb(237,246,255)" : "rgb(255,239,239)",
     minWidth: 180,
     minHeight: 42,
     padding: "6px 16px",
@@ -24,7 +28,7 @@ export const CustomTabMui = styled(Tab)(({ theme }) => ({
   },
   "&.Mui-selected": {
     color: "#fff",
-    backgroundColor: "rgb(0, 129, 241)",
+    backgroundColor: props["valid"] ? "rgb(0, 129, 241)" : "rgb(229,72,77)",
     outline: "none"
   }
 }));
