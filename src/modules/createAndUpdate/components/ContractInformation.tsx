@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import DatePicker from "react-datepicker";
 import CalenderIcon from '../../../scss/Calendaricon.svg'
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import CustomInputSelect, { customPaperProps } from './StyleSelected';
 import Input from '@mui/material/Input';
@@ -14,43 +14,98 @@ import TableRow from "@mui/material/TableRow";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import { TableCell } from '@mui/material';
-import { selectCoU, updateData } from '../redux/CreateOrUpdateReducer';
+import { addContractFile, pushContractsData, selectCoU, updateData } from '../redux/CreateOrUpdateReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { ICreateOrUpdate } from '../../../models/CreatOrUpdate';
+import { IContractUpload, ICreateOrUpdate } from '../../../models/CreatOrUpdate';
+import TableContract from './TableContract';
 
 interface Props {
+}
 
+interface contractFile {
+    file: File | null,
+    contractDate: string,
+    contractName: string
 }
 
 const ContractInformation = (props: Props) => {
     const [seelectedDate, setSelectedDate] = useState<Date | null>(null);
-    const [seelectedDate2, setSelectedDate2] = useState<Date | null>(null);
-    const [employeeType, setEmployeeType] = useState<any>()
     const dispatch = useDispatch()
-    const dataCreate : ICreateOrUpdate = useSelector(selectCoU)
-
-
-
+    const dataCreate: ICreateOrUpdate = useSelector(selectCoU)
     const fileInputRef = useRef<any>(null);
-    const [selectedFile, setSelectedFile] = useState<any>(null);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [contractUpload, setContractUpload] = useState<IContractUpload>({
+        contract_date: '',
+        action: 'add',
+        document: '',
+        document_file: [{}],
+        employee_id: -1,
+        name: '',
+        id: null,
+    })
+    const [contractFile, setContractFile] = useState<contractFile>({
+        file: null,
+        contractDate: "",
+        contractName: ""
+    });
+    const [errorMessage, setErrorMessage] = useState({
+        contractDate: false,
+        contractName: false,
+        contractFile: false
+    });
 
-    const handleFileChange = (event: any) => {
-        console.log(event);
-        const file = event.target.files[0];
+    const checkInput = (target: string, value: string) => {
+        console.log(value);
+        if (value) {
+            setErrorMessage({ ...errorMessage, [target]: false });
+            return;
+        }
+        setErrorMessage({ ...errorMessage, [target]: true });
+    };
+
+    const handleFileChangeImg = (event: any) => {
+        const file = event.target.files && event.target.files[0];
         setSelectedFile(file);
+        setContractFile({ ...contractFile, file: selectedFile || null })
+        if (file) {
+            setContractUpload({ ...contractUpload, id: file.lastModified })
+            return;
+        }
     };
 
     const handleButtonClick = () => {
         fileInputRef.current.click();
     };
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setEmployeeType(event.target.value)
-    };
-
-
-    const handleDelete = () => {
+    const handleDeleteImg = () => {
         setSelectedFile(null)
+        checkInput("contractFile", '')
+        setContractUpload({ ...contractUpload, id: null })
+    }
+
+    const handleUpAddImgContractTable = () => {
+        console.log(selectedFile);
+        if (contractUpload.contract_date && contractUpload.name && contractUpload.id) {
+            dispatch(pushContractsData(contractUpload))
+            dispatch(addContractFile({
+                documents: [selectedFile],
+                names: [contractUpload.name],
+                contract_dates: [contractUpload.contract_date],
+                modified_contracts: []
+            }))
+            setSelectedDate(null)
+            setSelectedFile(null)
+            setContractUpload({
+                contract_date: '',
+                action: 'add',
+                document: '',
+                document_file: [{}],
+                employee_id: -1,
+                name: '',
+                id: null,
+            })
+        }
+        console.log(errorMessage);
     }
 
 
@@ -76,9 +131,9 @@ const ContractInformation = (props: Props) => {
                         </label>
                         <div className='relative  flex h-12 w-3/5 flex-row items-center rounded-md bg-input outline-none'>
                             <DatePicker
-                                selected={new Date(dataCreate.contract_start_date)}
+                                selected={dataCreate.contract_start_date ? new Date(dataCreate.contract_start_date) : null}
                                 onChange={(date: any) => {
-                                    dispatch(updateData({ contract_start_date: new Date(date).toISOString().split('T')[0] }));
+                                    dispatch(updateData({ contract_start_date: date ? new Date(date).toISOString().split('T')[0] : null }));
                                 }}
                                 dateFormat="yyyy/MM/dd"
                                 className="h-8 w-full bg-input pl-8 pt-2 outline-none"
@@ -99,8 +154,7 @@ const ContractInformation = (props: Props) => {
                         <div className='w-3/5' >
                             <Select
                                 value={dataCreate.type}
-                                onChange={(event:any) => {
-                                    setEmployeeType(event.target.value)
+                                onChange={(event: any) => {
                                     dispatch(updateData({ type: event.target.value }));
                                 }}
                                 displayEmpty
@@ -136,13 +190,14 @@ const ContractInformation = (props: Props) => {
                             <span>Contract Date</span>
                             <div className='relative  flex h-12 w-3/5 flex-row items-center rounded-md bg-input outline-none'>
                                 <DatePicker
-                                    selected={seelectedDate}
+                                    selected={seelectedDate ? seelectedDate : null}
                                     onChange={(date: any) => {
-                                        console.log(date);
+                                        const dateString = new Date(date).toISOString()
                                         setSelectedDate(date);
+                                        setContractUpload({ ...contractUpload, contract_date: dateString })
                                     }}
                                     dateFormat="yyyy/MM/dd"
-                                    className="h-8 w-full bg-input pl-8 pt-2 outline-none"
+                                    className={errorMessage.contractDate ? "h-8 w-full bg-red-100 pl-8 pt-2 outline-none" : "h-8 w-full bg-input pl-8 pt-2 outline-none"}
                                     isClearable
                                 />
                                 <span className=" absolute left-3 top-4">
@@ -156,8 +211,13 @@ const ContractInformation = (props: Props) => {
                         <div className='flex justify-between py-1 items-center'>
                             <span>Contract Name</span>
                             <Input
+                                error={!errorMessage.contractName}
+                                value={contractUpload.name}
                                 disableUnderline={true}
-                                className='bg-slate-200 p-2 w-3/5 rounded-md'
+                                className='bg-slate-200 p-2 w-3/5 rounded-md '
+                                onChange={(e) => {
+                                    setContractUpload({ ...contractUpload, name: e.target.value })
+                                }}
                             />
                         </div>
                         <div className="btn-contract flex flex-col mt-3">
@@ -166,7 +226,7 @@ const ContractInformation = (props: Props) => {
                                 accept='image/*,.pdf,.csv,.xlsx,.docx'
                                 style={{ display: 'none' }}
                                 ref={fileInputRef}
-                                onChange={handleFileChange}
+                                onChange={handleFileChangeImg}
                             />
                             <Button
                                 variant="contained"
@@ -211,54 +271,21 @@ const ContractInformation = (props: Props) => {
                                         backgroundColor: "rgb(54, 215, 180)"
                                     }
                                 }}
+                                onClick={handleUpAddImgContractTable}
                             >
                                 Add
                             </Button>
-
-                            {/* {selectedFile && <p>{selectedFile.name}</p>} */}
                             {selectedFile &&
                                 <div className='file-name flex'>
                                     <p>{selectedFile.name}</p>
-                                    <button onClick={handleDelete}>
+                                    <button onClick={handleDeleteImg}>
                                         x
                                     </button>
                                 </div>}
                         </div>
                     </div>
                     <div className="body-right w-3/5">
-                        <TableContainer className="w-3/4 px-2 ">
-                            <Table
-                                sx={{
-                                    "& .MuiTableRow-root:hover": {
-                                        backgroundColor: "black"
-                                    }
-                                }}
-                                style={{
-                                    borderRadius: 8,
-                                }}
-                                size='small'
-                                stickyHeader
-                            >
-                                <TableHead>
-                                    <TableRow
-                                        sx={{
-                                            "& th:first-child": { borderTopLeftRadius: "12px" },
-                                            "& th:last-child": { borderTopRightRadius: "12px" }
-                                        }}
-                                    >
-                                        {columns.map((column, index) => (
-                                            <TableCell key={index} style={{ minWidth: `${column.width}px` }}>
-                                                {column.headerName}
-                                            </TableCell>
-                                        ))}
-                                    </TableRow>
-                                    <TableBody>
-
-                                    </TableBody>
-                                </TableHead>
-                            </Table>
-
-                        </TableContainer>
+                       <TableContract/>
                     </div>
                 </div>
 

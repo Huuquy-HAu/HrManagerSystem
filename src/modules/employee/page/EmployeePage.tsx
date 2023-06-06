@@ -1,5 +1,5 @@
 import { InputAdornment, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../scss/EmployeePage.scss'
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
@@ -13,6 +13,7 @@ import { selectEmployeeData, setEmployee } from '../redux/employeeReducer'
 import { useLocation, useNavigate } from 'react-router';
 import { selectEmployeePageData, setEmployeePage } from '../redux/employeePageDetalReducer';
 import { PaginationEmployee } from '../component/PaginationEmployee';
+import { getAPI } from '../../../configs/api';
 
 interface Props {
 
@@ -47,17 +48,11 @@ const EmployeePage = (props: Props) => {
         return queryParams;
     }
 
-
-
     const getDataEmployee = async () => {
         onLoading()
         try {
             let objSearch = getQueryParams(location.search)
-            const res = await axios.get(
-                `https://api-training.hrm.div4.pgtest.co/api/v1/employee${objSearch? (objSearch.search ? objSearch.page ? `?search=${objSearch.search}&page=${objSearch.page}` : `?search=${objSearch.search}`:`` ) :''}`+`${objSearch.page? `?page=${objSearch.page}`:''}`,
-                {
-                    headers: { Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN_KEY)}` }
-                })
+            const res = await getAPI(`/employee${objSearch? (objSearch.search ? objSearch.page ? `?search=${objSearch.search}&page=${objSearch.page}` : `?search=${objSearch.search}`:`` ) :''}`+`${objSearch.page? `?page=${objSearch.page}`:''}`)
             dispatch(setEmployee(res?.data.data.data))
             dispatch(setEmployeePage(res?.data.data))
             offLoading()
@@ -71,7 +66,7 @@ const EmployeePage = (props: Props) => {
     const searchData = async () => {
         onLoading()
         try {
-            const res = await axios.get(`https://api-training.hrm.div4.pgtest.co/api/v1/employee${query? (query.search ? query.page ? `?search=${query.search}&page=${query.page}` : `?search=${query.search}`:`` ) :''}`+`${query.page? `?page=${query.page}`:''}`, { headers: { Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN_KEY)}` } })
+            const res = await getAPI(`/employee${query? (query.search ? query.page ? `?search=${query.search}&page=${query.page}` : `?search=${query.search}`:`` ) :''}`+`${query.page? `?page=${query.page}`:''}`)
             dispatch(setEmployee(res?.data.data.data))
             dispatch(setEmployeePage(res?.data.data))
             nav(`/employee${query? (query.search ? query.page ? `?search=${query.search}&page=${query.page}` : `?search=${query.search}`:`?page=${query.page}` ) :''}`)
@@ -99,9 +94,6 @@ const EmployeePage = (props: Props) => {
 
         }
     }
-
-    
-
     useEffect(() => {
         if (query) {
             const timeoutId = setTimeout(() => {

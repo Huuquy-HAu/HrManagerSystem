@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react'
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import CustomInputSelect, { customPaperProps } from './StyleSelected';
@@ -6,14 +5,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CalenderIcon from '../../../scss/Calendaricon.svg'
-import axios from 'axios';
-import { ACCESS_TOKEN_KEY } from '../../../utils/constants';
-import Cookies from 'js-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCoU, updateData } from '../redux/CreateOrUpdateReducer';
 import { ICreateOrUpdate, ICreateOrUpdateValidation, IGetMarriage } from '../../../models/CreatOrUpdate';
-import { useForm } from "react-hook-form";
 import { getMarriage } from '../redux/DepartmentReducer';
+import { useParams } from 'react-router';
 
 interface Props {
     validateform(value: string, tag: string, required: boolean, length: number): void,
@@ -24,10 +20,9 @@ interface Props {
 const EmployeeInformation = (props: Props) => {
     const { validateform, errorsMessage } = props
     const dataCreate: ICreateOrUpdate = useSelector(selectCoU)
-    const marriageStatus:IGetMarriage[] = useSelector(getMarriage)
-    const [seelectedDate, setSelectedDate] = useState<Date | null>(null);
+    const marriageStatus: IGetMarriage[] = useSelector(getMarriage)
     const dispatch = useDispatch()
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { id } = useParams()
 
 
 
@@ -45,6 +40,24 @@ const EmployeeInformation = (props: Props) => {
             <div className="PersonalInformation-body flex">
 
                 <div className="body-left w-1/2 px-3">
+                    {id ?
+                        <div className="  mb-4 flex items-center justify-between">
+                            <label htmlFor="name" className="">
+                                NIK <span className="text-xl text-red-500">*</span>
+                            </label>
+                            <div className="flex w-3/5 flex-col">
+                                <input
+                                    type="text"
+                                    disabled = {true}
+                                    className={"h-12  rounded-md px-2 py-4 outline-none bg-input"}
+                                    value={dataCreate.staff_id}
+                                />
+                                <small className="pl-3 pt-2 text-left text-red-600">{errorsMessage.name}</small>
+                            </div>
+                        </div>
+                        : ''
+                    }
+
                     <div className="  mb-4 flex items-center justify-between">
                         <label htmlFor="name" className="">
                             Name <span className="text-xl text-red-500">*</span>
@@ -96,14 +109,13 @@ const EmployeeInformation = (props: Props) => {
                     </div>
                     <div className=" mb-4 flex items-center justify-between">
                         <label htmlFor="name">
-                            Date of birth<span className="text-xl text-red-500">*</span>
+                            Date of birth <span className="text-xl text-red-500">*</span>
                         </label>
                         <div className="relative  flex h-12 w-3/5 flex-row items-center rounded-md bg-input px-2 py-4 outline-none">
                             <DatePicker
-                                selected={seelectedDate}
+                                selected={dataCreate.dob ? new Date(dataCreate.dob) : null}
                                 onChange={(date: any) => {
-                                    setSelectedDate(date);
-                                    dispatch(updateData({ dob: new Date(date).toISOString().split('T')[0] }));
+                                    dispatch(updateData({ dob: date ? new Date(date).toISOString().split('T')[0] : null }));
                                     validateform(new Date(date).toISOString().split('T')[0], 'dob', true, 50)
                                 }}
                                 dateFormat="yyyy/MM/dd"
@@ -224,7 +236,7 @@ const EmployeeInformation = (props: Props) => {
                                 MenuProps={{
                                     PaperProps: customPaperProps
                                 }}
-                                onChange={(e) => { dispatch(updateData({marriage_id: Number(e.target.value) })); validateform(e.target.value ? e.target.value.toString(): '', 'marriage_id', false, 20) }}
+                                onChange={(e) => { dispatch(updateData({ marriage_id: Number(e.target.value) })); validateform(e.target.value ? e.target.value.toString() : '', 'marriage_id', false, 20) }}
                             >
                                 <MenuItem value="">N/A</MenuItem>
                                 <MenuItem hidden value="">

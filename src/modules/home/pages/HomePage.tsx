@@ -6,6 +6,7 @@ import SideBar from '../components/SideBar'
 import Typography from '@mui/material/Typography';
 import { Outlet } from 'react-router'
 import { Footer } from '../components/Footer'
+import BreadCrumbs from '../components/BreadCrumbs'
 
 interface Props {
 
@@ -21,6 +22,7 @@ const HomePage = (props: Props) => {
           <SideBar />
         </div>
         <div className="HomePage-body-right">
+          <BreadCrumbs />
           <Outlet />
           <Footer />
         </div>

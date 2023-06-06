@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { IEmployee } from '../../../models/Employee';
 import addIcon from '../../../scss/addIcon.svg'
 import deleteIcon from '../../../scss/deleteIcon.svg'
+import deleteIconDisable from '../../../scss/icondeleteDisable.svg'
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -144,7 +145,7 @@ const TableForm = (props: Props) => {
                     </Button>
                     <Button
                         disabled={!!!selected.length}
-                        startIcon={!!!selected.length ? <img src={deleteIcon} /> : <img src={deleteIcon} style={{ color: 'gray' }} />}
+                        startIcon={!!!selected.length ? <img src={deleteIconDisable} /> : <img src={deleteIcon} />}
                         className={!!!selected.length ? 'table-btn-delete-disable' : 'table-btn-delete-checked'}
                         onClick={handleOpen}
                     >

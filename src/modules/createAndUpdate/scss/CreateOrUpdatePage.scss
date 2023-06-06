@@ -394,7 +394,7 @@
                             white-space: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
-                            width: 350px;
+                            max-width: 200px;
                         }
 
                         button {
@@ -444,19 +444,33 @@
                         }
 
                         th,
-                        td {
+                        td,
+                        tr {
                             border: 2px solid white;
                             background: rgb(248, 249, 250);
                             color: rgb(104, 112, 118);
                             font-weight: 400;
                             font-size: 12px;
-                            line-height: 1.43;
+                            line-height: 1.43 !important;
                         }
-
                     }
                 }
 
             }
+           
+        }
+
+        
+        .OtherPage{
+            .other-document {
+                border: 1px solid rgb(223, 227, 230);
+                border-radius: 6px;
+                padding: 0 20px;
+                .header {
+                    margin: 10px;
+                }
+            }
+
         }
     }
 }

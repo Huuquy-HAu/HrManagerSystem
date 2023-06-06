@@ -24,6 +24,7 @@ function Routers(props: Props) {
                     <Route path={ROUTES.home} element={<HomePage />} >
                         <Route path={ROUTES.employee} element={<EmployeePage />} />
                         <Route path={ROUTES.createOrUpdate} element={<CreateOrUpdatePage />}/>
+                        <Route path={ROUTES.createOrUpdate+'/:id'} element={<CreateOrUpdatePage />}/>
                     </Route>
                 </Route>
             </Routes>

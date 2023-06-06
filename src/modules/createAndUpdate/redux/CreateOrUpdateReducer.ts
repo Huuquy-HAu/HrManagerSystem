@@ -1,10 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../../redux/store';
-import { ICreateOrUpdate } from '../../../models/CreatOrUpdate';
+import { IContractUpload, ICreateOrUpdate, IImgCreatContract, IOtherFormDataFile } from '../../../models/CreatOrUpdate';
 
 
 interface CreateOrUpdateSate {
-    data: ICreateOrUpdate
+    data: ICreateOrUpdate,
+    employeeInforCheckError: boolean,
+    contractFormError: boolean,
+    salaryFormError: boolean,
+    contractFileFormData: IImgCreatContract,
+    OtherFormDataFile: IOtherFormDataFile
 }
 
 const initialState: CreateOrUpdateSate = {
@@ -27,14 +32,14 @@ const initialState: CreateOrUpdateSate = {
         family_card_number: null,
         safety_insurance_no: null,
         health_insurance_no: null,
-        department_id: 0,
+        department_id: null,
         position_id: null,
         shift: '',
         type: '',
-        entitle_ot: '',
-        meal_allowance_paid: '',
-        operational_allowance_paid: '',
-        attendance_allowance_paid: '',
+        entitle_ot: false,
+        meal_allowance_paid: false,
+        operational_allowance_paid: true,
+        attendance_allowance_paid: true,
         basic_salary: 0,
         audit_salary: 0,
         safety_insurance: 0,
@@ -42,11 +47,28 @@ const initialState: CreateOrUpdateSate = {
         meal_allowance: 0,
         contract_start_date: '',
         grade_id: null,
+        grade: null,
         remark: null,
         benefits: [],
         account_user_id: 0,
-        contracts:[]
+        staff_id:'',
+        contracts: [],
+        documents: []
     },
+    employeeInforCheckError: false,
+    contractFormError: false,
+    salaryFormError: false,
+    contractFileFormData: {
+        names: [],
+        contract_dates: [],
+        documents: [],
+        modified_contracts: []
+    },
+    OtherFormDataFile: {
+        documents: [],
+        employee_id: 1
+    }
+
 }
 
 const CoUSlice = createSlice({
@@ -56,15 +78,64 @@ const CoUSlice = createSlice({
         setData: (state, action: PayloadAction<ICreateOrUpdate>) => {
             state.data = action.payload;
         },
+        resetData: (state) => {
+            state.data = initialState.data
+        },
+
         updateData: (state, action: PayloadAction<Partial<ICreateOrUpdate>>) => {
             Object.assign(state.data, action.payload);
         },
+        pushContractsData: (state, action: PayloadAction<IContractUpload>) => {
+            state.data.contracts.push(action.payload)
+        },
+        addContractFile: (state, action: PayloadAction<IImgCreatContract>) => {
+            const { names, contract_dates, documents } = action.payload;
+            if (names[0] !== "") {
+                state.contractFileFormData.names.push(...names);
+                state.contractFileFormData.contract_dates.push(...contract_dates);
+                state.contractFileFormData.documents.push(...documents)
+            }
+        },
+        removeContractFile: (state, action: PayloadAction<number>) => {
+            state.contractFileFormData.documents.splice(action.payload, 1);
+            console.log(current(state.contractFileFormData.documents));
+        },
+        addOtherFormDataFile: (state, action: PayloadAction<IOtherFormDataFile>) => {
+            const { documents } = action.payload;
+            state.OtherFormDataFile.documents.push(...documents);
+        },
+        removeOtherFormDataFile: (state, action: PayloadAction<number>) => {
+            let indexToRemove = state.OtherFormDataFile.documents.findIndex((obj) => obj.lastModified === action.payload);
+            state.OtherFormDataFile.documents.splice(indexToRemove, 1);
+        },
+        removeAllFormData:(state) => {
+            state.OtherFormDataFile = initialState.OtherFormDataFile
+            state.contractFileFormData = initialState.contractFileFormData
+        }
+
+
     },
 });
 
-export const { updateData } = CoUSlice.actions
+export const {
+    updateData,
+    pushContractsData,
+    addContractFile,
+    removeContractFile,
+    addOtherFormDataFile,
+    removeOtherFormDataFile,
+    resetData,
+    setData,
+    removeAllFormData
+} = CoUSlice.actions
 
 export const selectCoU = (state: RootState) => state.CreatOrUpdate.data
+
+export const selectEmployeePageValid = (state: RootState) => state.CreatOrUpdate.employeeInforCheckError
+
+export const selectContractFileFormData = (state: RootState) => state.CreatOrUpdate.contractFileFormData
+
+export const selectOtherFileFormData = (state: RootState) => state.CreatOrUpdate.OtherFormDataFile
 
 
 export default CoUSlice.reducer;

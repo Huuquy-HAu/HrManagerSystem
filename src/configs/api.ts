@@ -1,24 +1,34 @@
-import { APIHost } from '../utils/constants';
+import axios from "axios";
+import { ACCESS_TOKEN_KEY } from "../utils/constants";
+import Cookies from "js-cookie";
 
-enum APIService {
-  auth,
-  protected,
-  public,
-}
+export const BASE_URL = 'https://api-training.hrm.div4.pgtest.co/api/v1';
 
-function getBaseUrl(service: APIService) {
-  if (service === APIService.auth) {
-    return `${APIHost}/auth`;
-  } else if (service === APIService.protected) {
-    return `${APIHost}/protected`;
-  } else if (service === APIService.public) {
-    return `${APIHost}`;
+export const getAPI = async (url?: string) => {
+  try {
+    const res = await axios.get(BASE_URL+url , {headers: {Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN_KEY)}` }})
+    return res
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
-
-  return '';
 }
 
-export const API_PATHS = {
-  signIn: `${getBaseUrl(APIService.auth)}/login`,
-  userProfile: `${getBaseUrl(APIService.public)}/user`,
-};
+export const postAPI = async(url: string , data: any) => {
+  try {
+    const res = await axios.post(BASE_URL+url , data,{headers: {Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN_KEY)}` }})
+    return res
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+export const postAPIFormdata = async(url: string , formData: FormData) => {
+  try {
+    const res = await axios.post(BASE_URL+url , formData , {headers: {Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN_KEY)}` }})
+    return res
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

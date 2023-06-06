@@ -1,11 +1,11 @@
 export interface Icontracts {
-    action:string,
-    contract_date:string,
-    document:string,
-    document_file:any,
-    employee_id:number,
-    id:number,
-    name:string,
+    action: string,
+    contract_date: string,
+    document: string,
+    document_file: any,
+    employee_id: number,
+    id: number | null,
+    name: string,
 }
 
 export interface ICreateOrUpdate {
@@ -13,7 +13,7 @@ export interface ICreateOrUpdate {
     card_number: number | null;
     gender: number;
     mother_name: string | null;
-    dob: string;
+    dob: string | null;
     pob: string;
     ktp_no: number;
     nc_id: number;
@@ -27,25 +27,29 @@ export interface ICreateOrUpdate {
     family_card_number: number | null;
     safety_insurance_no: number | null;
     health_insurance_no: number | null;
-    department_id: number;
-    position_id: number | null;
+    department_id?: number | null | string;
+    position_id?: number | null | string;
     shift: string;
     type: string;
-    entitle_ot: string;
-    meal_allowance_paid: string;
-    operational_allowance_paid: string;
-    attendance_allowance_paid: string;
+    entitle_ot: boolean;
+    meal_allowance_paid: boolean;
+    operational_allowance_paid: boolean;
+    attendance_allowance_paid: boolean;
     basic_salary: number;
     audit_salary: number;
     safety_insurance: number;
     health_insurance: number;
     meal_allowance: number;
-    contract_start_date: string;
+    contract_start_date: string | null;
     grade_id: number | null;
+    grade: Igrade | null;
     remark: string | null;
     benefits: number[];
     account_user_id: number;
-    contracts: Icontracts[],
+    staff_id: string;
+    contracts: Icontracts[];
+    documents: IOtherUpload[]
+
 }
 
 export interface ICreateOrUpdateValidation {
@@ -111,4 +115,73 @@ export interface IGetMarriage {
     name: string,
     code: string,
     company_id: number
+}
+
+export interface IContractUpload {
+    contract_date: any,
+    action: string,
+    document: string
+    document_file: any[]
+    employee_id: number,
+    name: string,
+    id: number | null
+}
+
+
+export interface IlistImgContract {
+    employee_id: number | null,
+    names: string[],
+    contract_dates: Date[],
+    documents: File[],
+    modified_contracts: any[]
+}
+
+export interface IImgCreatContract {
+    names: string[];
+    contract_dates: Date[];
+    documents: any;
+    modified_contracts: string[];
+}
+
+export interface IImgCreatContractObj {
+    names: string,
+    contract_dates: Date,
+    document: File,
+    modified_contracts: string
+}
+
+
+export interface Ibenefits {
+    code: string;
+    company_id: number;
+    created_at: Date;
+    id: number;
+    name: string;
+    type: number;
+    updated_at: string;
+    value: string;
+}
+
+export interface Igrade {
+    benefits: Ibenefits[];
+    company_id: number;
+    created_at: Date;
+    id: number;
+    name: string;
+    prefix: string;
+    updated_at: string;
+}
+
+
+export interface IOtherUpload {
+    created_at: string;
+    document: string;
+    employee_id: number;
+    id: number;
+    updated_at: null;
+};
+
+export interface IOtherFormDataFile {
+    employee_id: number | null;
+    documents: File[];
 }

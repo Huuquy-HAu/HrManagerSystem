@@ -1,4 +1,4 @@
-import { IGetMarriage } from './../../../models/CreatOrUpdate';
+import { IContractUpload, IGetMarriage, IlistImgContract } from './../../../models/CreatOrUpdate';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../../redux/store';
 import { IDepartmanetData, IPositionData } from '../../../models/CreatOrUpdate';
@@ -8,7 +8,9 @@ import { IDepartmanetData, IPositionData } from '../../../models/CreatOrUpdate';
 interface IDepartment {
     deparmentData: IDepartmanetData[],
     positonData: IPositionData[],
-    marriageData: IGetMarriage[]
+    marriageData: IGetMarriage[],
+    listContracts: IContractUpload[],
+    listImgContract: IlistImgContract,
 }
 
 const initialState: IDepartment = {
@@ -19,7 +21,7 @@ const initialState: IDepartment = {
         company_id: 0,
         created_at: '',
     }],
-    positonData:  [{
+    positonData: [{
         id: 0,
         name: '',
         code: '',
@@ -31,7 +33,23 @@ const initialState: IDepartment = {
         name: '',
         code: '',
         company_id: 0
-    }]
+    }],
+    listContracts: [{
+        contract_date: null,
+        action: '',
+        document: '',
+        document_file: [],
+        employee_id: -1,
+        name: '',
+        id: null
+    }],
+    listImgContract: {
+        employee_id: null,
+        names: [],
+        contract_dates:[],
+        documents:[],
+        modified_contracts: []
+    }
 }
 
 const DepartmentSlice = createSlice({
@@ -47,10 +65,16 @@ const DepartmentSlice = createSlice({
         setMarriageData: (state, action: PayloadAction<IPositionData[]>) => {
             state.marriageData = action.payload;
         },
+        setlistContract: (state, action: PayloadAction<IContractUpload>) => {
+            state.listContracts.push(action.payload);
+        },
+        setlistImgContract:(state, action: PayloadAction<IlistImgContract>) => {
+            state.listImgContract = action.payload;
+        },
     },
 });
 
-export const { setDepartmentData, setPositionData , setMarriageData } = DepartmentSlice.actions
+export const { setDepartmentData, setPositionData, setMarriageData, setlistContract , setlistImgContract } = DepartmentSlice.actions
 
 export const getDepartment = (state: RootState) => state.DepartmentData.deparmentData
 

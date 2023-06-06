@@ -5,7 +5,6 @@ import logo from '../../../scss/Rectangle 4.svg'
 import { LoginForm } from '../components/LoginForm'
 import { IloginParams } from '../../../models/LoginForm'
 import axios from 'axios'
-import { API_PATHS } from '../../../configs/api'
 import { RESPONSE_STATUS_SUCCESS } from '../../../utils/httpResponseCode'
 import { ACCESS_TOKEN_KEY } from '../../../utils/constants'
 import { notification } from 'antd';
