@@ -290,7 +290,6 @@ const TableForm = (props: Props) => {
                 )}
                 <div>
                 </div>
-            </Box>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -314,16 +313,17 @@ const TableForm = (props: Props) => {
                         Are you sure you want to delete?
                     </Typography>
 
-                    <div className="footer">
-                        <Button variant="text">
+                    <div className="footer flex justify-evenly mt-2" >
+                        <Button variant="text" className='px-1 py-2' onClick={handleClose}>
                             No
                         </Button>
-                        <Button variant="contained" onClick={handelDelete}>
+                        <Button variant="contained" className='px-1 py-2' onClick={handelDelete}>
                             Yes
                         </Button>
                     </div>
                 </Box>
             </Modal>
+            </Box>
 
             <Snackbar
                 open={openAlert}

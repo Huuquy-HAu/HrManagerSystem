@@ -7,6 +7,7 @@ import EmployeePage from './modules/employee/page/EmployeePage'
 import ProtectedRoute from './modules/common/component/ProtectedRoute'
 import PrivateRoute from './modules/common/component/PrivateRoute'
 import { CreateOrUpdatePage } from './modules/createAndUpdate/Pages/CreateOrUpdatePage'
+import ForgotPasswordPage from './modules/auth/pages/ForgotPasswordPage'
 
 interface Props {
 
@@ -18,6 +19,11 @@ function Routers(props: Props) {
             <Routes>
                 <Route path={ROUTES.login} element={<PrivateRoute />}>
                     <Route path={ROUTES.login} element={<LoginPage />} />
+                </Route>
+
+
+                <Route path={ROUTES.forgotPassword} element={<PrivateRoute />}>
+                    <Route path={ROUTES.forgotPassword} element={<ForgotPasswordPage />} />
                 </Route>
 
                 <Route path='/' element={<ProtectedRoute />}>

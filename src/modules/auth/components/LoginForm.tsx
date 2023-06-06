@@ -105,7 +105,7 @@ export const LoginForm = (props: Props) => {
                     </Button>
                 </Form.Item>
 
-                <Link to={"/"}>Forgot your Password ?</Link>
+                <Link to={"/auth/forgot-password"}>Forgot your Password ?</Link>
             </Form>
         </div>
     )

@@ -32,3 +32,14 @@ export const postAPIFormdata = async(url: string , formData: FormData) => {
     throw error;
   }
 }
+
+
+export const postAPIForgot = async(url: string , data: any) => {
+  try {
+    const res = await axios.post(BASE_URL+url , data)
+    return res
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

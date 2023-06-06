@@ -5,6 +5,10 @@ export const validPasswordRegex =
   /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])(?!.*\s).{8,16}$/
 
 
+export const validEmailRegex =
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+
 export const validName =
   /^.{1,50}$/;
 

@@ -20,6 +20,7 @@ import { setDepartmentData, setMarriageData, setPositionData } from '../redux/De
 import errorIcon from '../../../scss/errorIcon.svg'
 import { message } from 'antd';
 import { BASE_URL, getAPI } from '../../../configs/api';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 interface Props {
@@ -34,6 +35,7 @@ export const CreateOrUpdatePage = (props: Props) => {
     const otherFileFormData: IOtherFormDataFile = useSelector(selectOtherFileFormData)
     const [validateEmploy, setValidateEmploy] = useState<boolean>(false)
     const [validContract, setValidcontract] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false);
     const [dataOrtherPage, setDataOrtherPage] = useState({
         grade: [],
         benefits: []
@@ -124,6 +126,7 @@ export const CreateOrUpdatePage = (props: Props) => {
         try {
             if (id) {
                 const res = await axios.put("https://api-training.hrm.div4.pgtest.co/api/v1/employee", dataCreate, { headers: { Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN_KEY)}` } })
+                setLoading(true)
                 if (dataCreate.documents.length) {
                     const formdata = new FormData();
                     formdata.append("employee_id", res.data.data.id);
@@ -149,10 +152,12 @@ export const CreateOrUpdatePage = (props: Props) => {
                 dispatch(resetData())
                 nav('/employee')
                 message.success(res?.data.message)
+                setLoading(false)
                 dispatch(resetData())
                 nav('/employee')
 
             } else {
+                setLoading(true)
                 const res = await axios.post("https://api-training.hrm.div4.pgtest.co/api/v1/employee", dataCreate, { headers: { Authorization: `Bearer ${Cookies.get(ACCESS_TOKEN_KEY)}` } })
                 if (dataCreate.documents.length) {
                     const formdata = new FormData();
@@ -164,7 +169,7 @@ export const CreateOrUpdatePage = (props: Props) => {
                     });
                 }
 
-                if (dataCreate.contracts) {
+                if (dataCreate.contracts.length) {
                     const formdata = new FormData();
                     formdata.append("employee_id", res.data.data.id);
                     contractFileFormData.names.forEach((name) => formdata.append("names[]", name));
@@ -177,6 +182,7 @@ export const CreateOrUpdatePage = (props: Props) => {
                 }
                 message.success(res?.data.message)
                 dispatch(resetData())
+                setLoading(false)
                 nav('/employee')
             }
 
@@ -251,12 +257,13 @@ export const CreateOrUpdatePage = (props: Props) => {
                 </div>
                 <div className="header-right">
                     <Button
-                        disabled={validateEmploy === false || validContract === false}
+                        disabled={validateEmploy === false || validContract === false }
                         variant="contained"
                         sx={{
                             padding: '8px 22px'
                         }}
                         onClick={handleAddOrUpdate}
+                        startIcon={loading ? <CircularProgress size={20} /> : null}
                     >
                         {id ? 'Save Change' : 'Add'}
                     </Button>

@@ -1,5 +1,5 @@
 import { IloginParams, IloginValidate } from "../../models/LoginForm";
-import { validPasswordRegex, validUserNameRegex } from "../../utils";
+import { validEmailRegex, validPasswordRegex, validUserNameRegex } from "../../utils";
 
 const validateEmail = (email: string) => {
     if (!email) {
@@ -28,6 +28,19 @@ const validatePassword = (password: string) => {
 };
 
 
+export const validateEmailForgotPasswword = (email: string) => {
+    if (!email) {
+        return 'Email Require';
+    }
+
+    if (!validEmailRegex.test(email)) {
+        return 'Invalid email address';
+    }
+
+    return '';
+};
+
+
 
 const validateCompany = (company_id: number | null) => {
     if (!company_id) {
@@ -44,4 +57,5 @@ export const validateLogin = (values: IloginParams)=> {
         company: validateCompany(values.company_id)
     };
 };
+
 
