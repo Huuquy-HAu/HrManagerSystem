@@ -73,6 +73,7 @@ const OtherPage = (props: Props) => {
                             placeholder=''
                             className='other-select px-2 py-3'
                         >
+                            <option value='' hidden> </option>
                             {dataOrtherPage.grade.map((value: any) => {
                                 return (
                                     <option value={value.id} key={value.id}>{value.name}</option>

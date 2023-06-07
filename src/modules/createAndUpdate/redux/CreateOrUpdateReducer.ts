@@ -16,7 +16,7 @@ const initialState: CreateOrUpdateSate = {
     data: {
         name: '',
         card_number: null,
-        gender: 0,
+        gender: '',
         mother_name: null,
         dob: '',
         pob: '',

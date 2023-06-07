@@ -11,7 +11,7 @@ export interface Icontracts {
 export interface ICreateOrUpdate {
     name: string;
     card_number: number | null;
-    gender: number;
+    gender: number | string;
     mother_name: string | null;
     dob: string | null;
     pob: string;

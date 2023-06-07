@@ -78,7 +78,7 @@ const EmployeeInformation = (props: Props) => {
                         </label>
                         <div className="flex w-3/5 flex-col">
                             <Select
-                                value={dataCreate.gender.toString()}
+                                value={dataCreate.gender !== '' ? dataCreate.gender.toString() : ''}
                                 onChange={handleChange}
                                 displayEmpty
                                 inputProps={{ 'aria-label': 'Without label' }}
@@ -89,6 +89,9 @@ const EmployeeInformation = (props: Props) => {
                                     PaperProps: customPaperProps
                                 }}
                             >
+                                <MenuItem hidden value="">
+                                    Choose Gender
+                                </MenuItem>
                                 <MenuItem value={0}>Male</MenuItem>
                                 <MenuItem value={1}>Female</MenuItem>
                             </Select>
